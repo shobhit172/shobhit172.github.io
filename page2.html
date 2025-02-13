@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <!-- Example: Link to Delicious Handrawn font -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f7d1d1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .envelope {
+            width: 350px;
+            height: 250px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #f47b7b;
+            font-family: 'Delicious Handrawn', cursive; /* Apply Delicious Handrawn */
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: #ff4d4d;
+            color: white;
+            border-radius: 25px;
+            margin: 10px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #ff1a1a;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .btn-no {
+            background: #ff5c5c;
+        }
+        .pop-up {
+            font-size: 1.5em;
+            color: #ff5c5c;
+            margin-top: 10px;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+        .shake { animation: shake 0.5s ease-in-out; }
+    </style>
+</head>
+<body>
+
+    <audio id="noSound" src="https://www.soundjay.com/button/button-16.wav" preload="auto"></audio>
+    <audio id="yesSound" src="https://www.soundjay.com/button/party-popper-01.wav" preload="auto"></audio>
+
+    <div class="envelope">
+        <h1 id="question">Will you be my Valentine?</h1>
+        <button class="btn btn-yes" onclick="accept()">YES PLEASE</button>
+        <button class="btn btn-no" id="noButton" onclick="decline()">NOOOOO!</button>
+        <div id="popUpText" class="pop-up"></div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const popUpMessages = ["Maybe", "WHATT?!", "WHYYY?!", "I will cry :(", "TwT"];
+
+        function accept() {
+            document.getElementById("yesSound").play();
+            alert("YAY! You're my Valentine! 💖");
+            document.getElementById("question").innerText = "YAY! You're my Valentine! 💖";
+            document.getElementById("noButton").style.display = "none";
+        }
+
+        function decline() {
+            document.getElementById("noSound").play();
+            noClickCount++;
+            document.getElementById("question").innerText ="Will you be my Valentine?";{' please'.repeat(noClickCount)};
+            document.getElementById("noButton").style.backgroundColor = "#ff1a1a";
+            document.querySelector('.envelope').style.height = (250 + noClickCount * 30) + "px";
+            document.getElementById("popUpText").innerText = popUpMessages[noClickCount - 1] || "";
+            document.getElementById("noButton").classList.add("shake");
+            setTimeout(() => document.getElementById("noButton").classList.remove("shake"), 500);
+            if (noClickCount >= 5) document.getElementById("noButton").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
